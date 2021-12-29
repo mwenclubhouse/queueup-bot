@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+import discord from "discord.js";
 const { NONAME } = require("dns");
 
 async function clear_emojis(message) {

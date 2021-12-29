@@ -1,5 +1,7 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
+import * as userResponse from './common/user-response.js';
+//const {userResponse} = require("./common/user-response.js");
 require('dotenv').config()
 
 client.on("ready", () => {
@@ -23,3 +25,6 @@ async function clear_emojis(message) {
 }
 
 client.login(process.env.TOKEN)
+
+
+const p = new userResponse()
