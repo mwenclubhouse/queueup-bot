@@ -62,7 +62,7 @@ class userResponse {
 
     async send_loading(message) {
         if (this.loading) {
-            response = discord.Embed().add_field(name="Loading", value="Loading Content");
+            response = discord.MessageEmbed().add_field({name: "Loading", value: "Loading Content"});
             await message.channel.send(embed=response);
         }
     }
