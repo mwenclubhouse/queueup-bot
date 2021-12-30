@@ -1,5 +1,5 @@
 import discord from "discord.js";
-const { NONAME } = require("dns");
+import NONAME from "dns";
 
 async function clear_emojis(message) {
     for (reaction in message.reactions) {
@@ -7,7 +7,7 @@ async function clear_emojis(message) {
     }
 }
 
-class userResponse {
+export class userResponse {
     constructor(done = true) {
         this.response = [];
         this.done = done;
