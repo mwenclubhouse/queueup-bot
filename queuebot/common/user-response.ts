@@ -1,4 +1,4 @@
-import discord from "discord.js";
+import discord, { Snowflake, Message, Channel } from "discord.js";
 import NONAME from "dns";
 
 async function clear_emojis(message : any) {
@@ -13,7 +13,7 @@ export class userResponse {
     done: boolean;
     emoji: string[];
     delete_message: boolean;
-    permissions: bigint[];
+    permissions: {author: Snowflake, channel: Channel, access: boolean}[];
     loading: boolean;
     constructor(done = true) {
         this.response = [];
@@ -75,13 +75,13 @@ export class userResponse {
         }
     }
     
-
-    async send_message(message : any, channel = null) {
+    
+    async send_message(message : Message, channel : Channel) {
         if (channel == null) {
             channel = message.channel;
         }
         for (const element of self.permissions) {
-            await channel.set_permissions(element.at(0), read_messages=element.at(2), send_messages=element.at(2));
+            await channel.permissionsOverwrites(element.at(0), read_messages=element.at(2), send_messages=element.at(2));
         }
         if (message != null) {
             for (const element of self.emoji) {
