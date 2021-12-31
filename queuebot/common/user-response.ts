@@ -1,13 +1,20 @@
 import discord from "discord.js";
 import NONAME from "dns";
 
-async function clear_emojis(message) {
+async function clear_emojis(message : any) {
+    var reaction : any;
     for (reaction in message.reactions) {
         await reaction.clear();
     }
 }
 
 export class userResponse {
+    response: string[];
+    done: boolean;
+    emoji: string[];
+    delete_message: boolean;
+    permissions: bigint[];
+    loading: boolean;
     constructor(done = true) {
         this.response = [];
         this.done = done;
@@ -51,7 +58,7 @@ export class userResponse {
         }
     }
 
-    add_response(item, done = false) {
+    add_response(item : string, done = false) {
         if (!this.done) {
             this.done = this.done || done;
             if ((item != null) && (item != this.response_tail())) {
@@ -60,15 +67,16 @@ export class userResponse {
         }
     }
 
+    /*
     async send_loading(message) {
         if (this.loading) {
             response = discord.MessageEmbed().add_field({name: "Loading", value: "Loading Content"});
             await message.channel.send(embed=response);
         }
     }
-
     
-    async send_message(message, channel = null) {
+
+    async send_message(message : any, channel = null) {
         if (channel == null) {
             channel = message.channel;
         }
@@ -89,4 +97,5 @@ export class userResponse {
             }
         }
     }
+    */
 }
