@@ -1,4 +1,4 @@
-import discord, { Snowflake, Message, Channel } from "discord.js";
+import discord, { Snowflake, Message, Channel, Permissions, TeamMember, User, TextChannel, GuildMember, NewsChannel, DMChannel, MessageEmbed } from "discord.js";
 import NONAME from "dns";
 
 async function clear_emojis(message : any) {
@@ -9,11 +9,16 @@ async function clear_emojis(message : any) {
 }
 
 export class userResponse {
-    response: string[];
+    response: (MessageEmbed | string)[];
     done: boolean;
     emoji: string[];
     delete_message: boolean;
-    permissions: {author: Snowflake, channel: Channel, access: boolean}[];
+    /* List: List of tuples
+    1. Author: 
+    2. Channel: 
+    3. Access: 
+    */
+    permissions: {author: GuildMember | null, channel: TextChannel, access: boolean}[];
     loading: boolean;
     constructor(done = true) {
         this.response = [];
@@ -74,28 +79,31 @@ export class userResponse {
             await message.channel.send(embed=response);
         }
     }
-    
-    
-    async send_message(message : Message, channel : Channel) {
-        if (channel == null) {
+    */
+
+    async send_message(message : Message, channel? : TextChannel | NewsChannel | DMChannel) {
+        if (channel == undefined) {
             channel = message.channel;
         }
-        for (const element of self.permissions) {
-            await channel.permissionsOverwrites(element.at(0), read_messages=element.at(2), send_messages=element.at(2));
+        for (const element of this.permissions) {
+            console.log(this.permissions);
+            if (element.author instanceof GuildMember && !(channel instanceof DMChannel)) {
+                await channel.updateOverwrite(element.author, {SEND_MESSAGES: element.access, READ_MESSAGE_HISTORY: element.access});
+                channel.send("${element.author} has had permissions changed!");
+                //await channel.permissionsOverwrites(element.at(0), read_messages=element.at(2), send_messages=element.at(2));
+            }
         }
         if (message != null) {
-            for (const element of self.emoji) {
-                await message.add_reaction(element);
+            for (const element of this.emoji) {
+                await message.react(element);
             }
         }
-        for (const element of response) {
-            if (typeof(element) == "string") {
-                await channel.send(element);
-            }
-            else {
-                await channel.send(embed = element);
-            }
+        if(channel == undefined) {
+            channel = message.channel;
+        }
+        for (const element of this.response) {
+            await channel.send(element);
         }
     }
-    */
 }
+

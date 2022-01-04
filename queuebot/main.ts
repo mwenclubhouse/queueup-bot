@@ -13,19 +13,7 @@ client.on("message", (msg : any) => {
     msg.reply("pong");
   }
   msg.react('👍')
-  //clear_emojis(msg);
 })
 
 client.login(process.env.TOKEN)
 
-const p = new userResponse();
-
-p.response = ["Hello", "Hey"];
-
-console.log(p.response_tail());
-
-p.done = false;
-
-p.add_response("Whats up");
-
-console.log(p.response);
