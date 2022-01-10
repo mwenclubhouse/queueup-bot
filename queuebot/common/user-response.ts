@@ -38,6 +38,10 @@ export class userResponse {
         return this.response.at(-1);
     }
 
+    async run_emoji_command(){
+        // Fill in after finishing DB
+    }
+
     set_options(state = null) {
         var waiting_emoji = ["✋"];
         var done_emoji = ["✅"];

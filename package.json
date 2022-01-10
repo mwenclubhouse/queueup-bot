@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node queuebot/main.ts",
-    "test": "ts-node queuebot/scripts.ts"
+    "test": "ts-node queuebot/scripts.ts",
+    "try": "ts-node queuebot/discord-wrapper.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -20,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^17.0.5",
+    "@types/sqlite3": "^3.1.8",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
