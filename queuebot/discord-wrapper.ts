@@ -7,6 +7,8 @@ const path = require("path");
 
 class Permissions {
     constructor(server_id: Snowflake) {
+        let connection = get_server_db_connection(server_id);
+        let command = "SELECT * FROM rooms;"
 
     }
 }
@@ -17,7 +19,7 @@ function get_db_connection(file_location: string, force_create: Boolean = false)
     if(file_location != null) {
         is_setup = fs.path.isfile(file_location);
         if (force_create || is_setup) {
-            connection = sqlite3.Database(file_location)
+            //connection = new sqlite3.Database(file_location)
         }
     }
     return new Array(is_setup, connection);
