@@ -20,6 +20,8 @@ client.on("message", async (msg : Message) => {
         console.log(author.permissions.has(Permissions.FLAGS.SEND_MESSAGES));
     }
 
+    
+    //const p : typeof userResponse = new userResponse(false);
     /*
     p.emoji = ["✋", "✅", "⌛", "🔄", "❌"];
     p.response = ["This is a test response", "All responses are sending", "Nice"];
