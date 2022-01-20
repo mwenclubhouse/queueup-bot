@@ -22,9 +22,10 @@ class Permissions {
         }
     }
 
+    
     async remove_permissions_from_all_rooms(student: GuildMember) {
         var client: any = DiscordWrapper.client;
-        
+
     }
 }
 
