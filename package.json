@@ -7,7 +7,7 @@
     "dev": "ts-node queuebot/main.ts",
     "test": "ts-node queuebot/scripts.ts",
     "try": "ts-node queuebot/discord-wrapper.ts",
-    "sql": "ts-node queuebot/testql.ts"
+    "sql": "ts-node queuebot/common/utils.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
