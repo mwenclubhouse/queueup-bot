@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node queuebot/main.ts",
     "test": "ts-node queuebot/scripts.ts",
-    "try": "ts-node queuebot/discord-wrapper.ts"
+    "try": "ts-node queuebot/discord-wrapper.ts",
+    "sql": "ts-node queuebot/testql.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -22,9 +23,11 @@
   "dependencies": {
     "@types/node": "^17.0.5",
     "@types/sqlite3": "^3.1.8",
+    "body-parser": "^1.19.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
+    "firebase": "^9.6.5",
     "sqlite3": "^4.1.1"
   }
 }

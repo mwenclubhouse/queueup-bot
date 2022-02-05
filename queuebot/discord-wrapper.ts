@@ -9,15 +9,15 @@ class Permissions {
     command: string;
     data: any;
     server_id: Snowflake;
-    rooms: [any, any][];
+    rooms = new Map<any, any>();
     constructor(server_id: Snowflake) {
         this.connect = get_server_db_connection(server_id);
         this.command = "SELECT * FROM rooms;"
-        this.data = get_sqlite_data(this.connect, this.command)
+        this.data = get_sqlite_data(this.connect?.at(1), this.command)
         this.server_id = server_id;
         if (this.data != null) {
             this.data.array.forEach((element: string | any[]) => {
-                this.rooms.push([element.at(0), element.at(1)]);
+                this.rooms.set(element.at(0), element.at(1));
             });
         }
     }
