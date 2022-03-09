@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node queuebot/main.ts",
+    "db": "ts-node queuebot/firebase/fb-db.ts",
     "test": "ts-node queuebot/scripts.ts",
     "try": "ts-node queuebot/discord-wrapper.ts",
     "sql": "ts-node queuebot/common/utils.ts"
@@ -27,7 +28,8 @@
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
-    "firebase": "^9.6.5",
+    "firebase": "^9.6.7",
+    "firebase-admin": "^10.0.2",
     "sqlite3": "^4.1.1"
   }
 }
