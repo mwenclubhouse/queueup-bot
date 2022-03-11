@@ -9,7 +9,10 @@ client.on("ready", () => {
 })
 
 client.on("message", async (msg : Message) => {
-    const g: Guild | null = msg.guild;
+  
+    
+  /*
+  const g: Guild | null = msg.guild;
     if(g instanceof Guild) {
         const author : GuildMember = await g.members.fetch({user : msg.author});
         const p : typeof userResponse = new userResponse(false);
@@ -18,7 +21,7 @@ client.on("message", async (msg : Message) => {
         p.permissions = [{author, channel, access}];
         p.send_message(msg);
         console.log(author.permissions.has(Permissions.FLAGS.SEND_MESSAGES));
-    }
+    } */
 
     
     //const p : typeof userResponse = new userResponse(false);

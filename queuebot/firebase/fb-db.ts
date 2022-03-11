@@ -11,13 +11,13 @@ const app = initializeApp({
 });
 const firestore = getFirestore(app);
 
-async function addMem(name : string) {
+export async function addMem(name : string) {
     const d = new Date();
     let time = d.getTime();
     await firestore.collection("test").add({name: name, timestamp: time});
 }
 
-async function dequeueMem() {
+export async function dequeueMem() {
     let name: string = "";
     let mem: any = null;
 
@@ -32,17 +32,20 @@ async function dequeueMem() {
     return true;
 }
 
-async function clearQueue() {
-    firestore.collection("test").get().then(element => {
-        firestore.collection("helped").add(element.docs[0].data());
-        console.log(element.docs.length);
-        element.docs[0].ref.delete();
+export async function clearQueue() {
+    firestore.collection('test').get().then(snap => {
+        let size = snap.size;
+        for(let i = 0; i < size; i++) {
+            firestore.collection("helped").add(snap.docs[0].data());
+            console.log(snap.docs[i].data().name);
+            snap.docs[i].ref.delete();
+        }
     });
 }
 
-
-for(let i = 0; i < 15; i++) {
-    addMem("Student in queue #" + String(i), ).then();
-} 
+/* 
+for(let i = 0; i < 12; i++) {
+    addMem("New student in queue # " + String(i));
+} */
 
 clearQueue().then();
