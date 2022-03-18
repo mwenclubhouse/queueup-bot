@@ -6,18 +6,19 @@ import { memoryUsage } from 'process';
 
 console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-const app = initializeApp({
-    Credential: applicationDefault()
-});
-const firestore = getFirestore(app);
-
-export async function addMem(name : string) {
+export async function addMem(firestore: FirebaseFirestore.Firestore, name : string) {
     const d = new Date();
     let time = d.getTime();
     await firestore.collection("test").add({name: name, timestamp: time});
 }
 
-export async function dequeueMem() {
+export async function getNext(firestore: FirebaseFirestore.Firestore) {
+    let next = await firestore.collection("test").orderBy("timestamp").limit(1).get();
+    console.log(next.docs[0].data().name);
+    return next.docs[0].data().name;
+}
+
+export async function dequeueMem(firestore: FirebaseFirestore.Firestore, ) {
     let name: string = "";
     let mem: any = null;
 
@@ -32,7 +33,7 @@ export async function dequeueMem() {
     return true;
 }
 
-export async function clearQueue() {
+export async function clearQueue(firestore: FirebaseFirestore.Firestore, ) {
     firestore.collection('test').get().then(snap => {
         let size = snap.size;
         for(let i = 0; i < size; i++) {
@@ -48,4 +49,4 @@ for(let i = 0; i < 12; i++) {
     addMem("New student in queue # " + String(i));
 } */
 
-clearQueue().then();
+//clearQueue(firestore2).then();

@@ -1,16 +1,37 @@
-import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, TextChannel, Permissions } from "discord.js";
+import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, TextChannel, Permissions, User } from "discord.js";
 const client : any = new Discord.Client()
 //const userResponse = require('./common/user-response.js');
 const {userResponse} = require("./common/user-response.ts");
 require('dotenv').config()
+import * as init from "./firebase/init_fb_db"
+import * as db from "./firebase/fb-db";
+import * as ta from "./message-response/ta-channel";
+import * as student from "./message-response/student-channel";
 
+// Initializes connection to database
+const firestore = init.init_db();
+
+// Channel ID for student and TA specific channel
+const taChannelID = '951941492887392336';
+const studentChannelID = '924019819286790178'
+
+// Initializes discord bot and returns the user tag
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
+
+// Handles channel inputs
 client.on("message", async (msg : Message) => {
-  
-    
+  if(msg.author.bot) {
+    return;
+  }
+  if(msg.channel.id == taChannelID) {
+    ta.response(firestore, msg);
+  }
+  else if(msg.channel.id == studentChannelID) {
+    student.response(firestore, msg);
+  }
   /*
   const g: Guild | null = msg.guild;
     if(g instanceof Guild) {
@@ -22,15 +43,7 @@ client.on("message", async (msg : Message) => {
         p.send_message(msg);
         console.log(author.permissions.has(Permissions.FLAGS.SEND_MESSAGES));
     } */
-
-    
-    //const p : typeof userResponse = new userResponse(false);
-    /*
-    p.emoji = ["✋", "✅", "⌛", "🔄", "❌"];
-    p.response = ["This is a test response", "All responses are sending", "Nice"];
-    p.send_message(msg);
-    */
-
+    //msg.channel.updateOverwrite(client, {SEND_MESSAGES: true, READ_MESSAGE_HISTORY: true});
   })
 
 client.login(process.env.TOKEN)
