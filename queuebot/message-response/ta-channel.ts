@@ -3,7 +3,7 @@ import * as init from "../firebase/init_fb_db"
 import * as db from "../firebase/fb-db";
 import { channel } from "diagnostics_channel";
 
-export async function response(firestore: FirebaseFirestore.Firestore, msg: Message) {
+export async function message_response(firestore: FirebaseFirestore.Firestore, msg: Message) {
     if(msg.content == '!next') {
         let str = await db.getNext(firestore);
         msg.reply(String(str));
@@ -11,6 +11,10 @@ export async function response(firestore: FirebaseFirestore.Firestore, msg: Mess
     else if(msg.content == "!help") {
         await help(msg);
     }
+}
+
+export async function reaction_response(firestore: FirebaseFirestore.Firestore, packet: any) {
+    
 }
 
 // Prints out list of help commands for channel
