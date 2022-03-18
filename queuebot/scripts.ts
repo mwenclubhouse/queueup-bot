@@ -1,4 +1,4 @@
-import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, TextChannel, Permissions, User } from "discord.js";
+import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, TextChannel, Permissions, User, ReactionEmoji, MessageReaction } from "discord.js";
 const client : any = new Discord.Client()
 //const userResponse = require('./common/user-response.js');
 const {userResponse} = require("./common/user-response.ts");
@@ -19,7 +19,6 @@ const studentChannelID = '924019819286790178'
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
-
 
 // Handles channel inputs
 client.on("message", async (msg : Message) => {
@@ -44,6 +43,17 @@ client.on("message", async (msg : Message) => {
         console.log(author.permissions.has(Permissions.FLAGS.SEND_MESSAGES));
     } */
     //msg.channel.updateOverwrite(client, {SEND_MESSAGES: true, READ_MESSAGE_HISTORY: true});
+  })
+  
+  client.on("messageReactAdd", async(react: any, user: User) => {
+    console.log("This is happening rn");
+    if(react.message.member.roles.find((r: any | {name: string; }) => r.name == "TA")) {
+      react.message.reply("TA has reacted to message");
+      console.log("this is happening");
+    }
+    else {
+      react.remove();
+    }
   })
 
 client.login(process.env.TOKEN)
