@@ -25,6 +25,7 @@ export async function message_response(firestore: FirebaseFirestore.Firestore, m
                     temp = await channel.bulkDelete(fetched).catch(console.error);
                 } while(fetched.size>= 1)
             }
+            msg.reply("Qeueue reset and channel emptied!");
         }
     }
 }
