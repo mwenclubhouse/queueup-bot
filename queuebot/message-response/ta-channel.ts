@@ -2,6 +2,8 @@ import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, 
 import * as init from "../firebase/init_fb_db"
 import * as db from "../firebase/fb-db";
 import { channel } from "diagnostics_channel";
+import { FIREBASE_CONFIG_VAR } from "firebase-admin/lib/app/lifecycle";
+const studentChannelID = '924019819286790178';
 
 export async function message_response(firestore: FirebaseFirestore.Firestore, msg: Message) {
     if(msg.content == '!next') {
@@ -10,6 +12,20 @@ export async function message_response(firestore: FirebaseFirestore.Firestore, m
     }
     else if(msg.content == "!help") {
         await help(msg);
+    }
+    if(msg.content == "!CLEAR QUEUE") {
+        await db.clearQueue(firestore);
+        if(msg.guild != null) {
+            let channel = msg.guild.channels.cache.get(studentChannelID);
+            let temp;
+            let fetched;
+            if(channel != null && channel instanceof TextChannel) {
+                do {
+                    fetched = await channel.messages.fetch({limit: 1});
+                    temp = await channel.bulkDelete(fetched).catch(console.error);
+                } while(fetched.size>= 1)
+            }
+        }
     }
 }
 

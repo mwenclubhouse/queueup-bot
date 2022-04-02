@@ -38,7 +38,6 @@ export async function clearQueue(firestore: FirebaseFirestore.Firestore, ) {
         let size = snap.size;
         for(let i = 0; i < size; i++) {
             firestore.collection("helped").add(snap.docs[0].data());
-            console.log(snap.docs[i].data().name);
             snap.docs[i].ref.delete();
         }
     });
