@@ -35,3 +35,6 @@ Queue-bot features implementation of firebase and firestore as a database for st
   -Commands
   
     -"I need help": Enters student in queue (Can only be used in student-channel)
+    
+**Features**
+-Students cannot be entered as two seperate instances in the queue
