@@ -7,9 +7,15 @@ const taID = '951950300816740364'
 
 export async function message_response(firestore: FirebaseFirestore.Firestore, msg: Message) {
     if(msg.content == "I need help") {
-        db.addMem(firestore, String(msg.author.username));
-        msg.react("✋");
-        msg.author.send("You have been added to the queue");
+        let added = await db.addMem(firestore, String(msg.author.username), String(msg.author.id));
+        if(added) {
+            msg.react("✋");
+            msg.author.send("You have been added to the queue");
+        }
+        else {
+            msg.author.send("You are already in the queue, please wait to be helped");
+            msg.delete();
+        }
     }
     else if(msg.content == "!help") {
         await help(msg);
