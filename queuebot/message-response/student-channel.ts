@@ -21,7 +21,8 @@ export async function message_response(firestore: FirebaseFirestore.Firestore, m
         await help(msg);
     }
     else {
-        msg.reply("Please only use this channel for queueing");
+        msg.author.send("Please only use this channel for queueing");
+        msg.delete();
     }
 }
 
