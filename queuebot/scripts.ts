@@ -8,6 +8,9 @@ import * as db from "./firebase/fb-db";
 import * as ta from "./message-response/ta-channel";
 import * as student from "./message-response/student-channel";
 
+// Boolean condition for open or closed office hours
+let q: Boolean = true;
+
 // Initializes connection to database
 const firestore = init.init_db();
 
@@ -29,10 +32,16 @@ if(msg.author.bot) {
   return;
 }
 if(msg.channel.id == taChannelID) {
-  ta.message_response(firestore, msg);
+  q = await ta.message_response(firestore, msg, q);
 }
 else if(msg.channel.id == studentChannelID) {
-  student.message_response(firestore, msg);
+  if(q) {
+    await student.message_response(firestore, msg);
+  }
+  else {
+    msg.author.send("The help queue is currently closed, please wait for it to reopen");
+    msg.delete();
+  }
 }
 /*
 const g: Guild | null = msg.guild;

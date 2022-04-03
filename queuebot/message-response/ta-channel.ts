@@ -5,7 +5,7 @@ import { channel } from "diagnostics_channel";
 import { FIREBASE_CONFIG_VAR } from "firebase-admin/lib/app/lifecycle";
 const studentChannelID = '924019819286790178';
 
-export async function message_response(firestore: FirebaseFirestore.Firestore, msg: Message) {
+export async function message_response(firestore: FirebaseFirestore.Firestore, msg: Message, q: Boolean) {
     if(msg.content == '!next') {
         let str = await db.getNext(firestore);
         msg.reply(String(str));
@@ -25,9 +25,30 @@ export async function message_response(firestore: FirebaseFirestore.Firestore, m
                     temp = await channel.bulkDelete(fetched).catch(console.error);
                 } while(fetched.size>= 1)
             }
-            msg.reply("Qeueue reset and channel emptied!");
+            msg.reply("Queue reset and channel emptied!");
         }
     }
+    if(msg.content == "!CLOSEQ" && q) {
+        if(msg.guild != null) {
+            let channel = await msg.guild.channels.cache.get(studentChannelID);
+            if(channel != null && channel instanceof TextChannel) {
+                channel.send("The queue is currently closed")
+            }
+        }
+        return false;
+    }
+    if(msg.content == '!OPENQ' && !q) {
+        if(msg.guild != null) {
+            let channel = await msg.guild.channels.cache.get(studentChannelID);
+            if(channel != null && channel instanceof TextChannel) {
+                let fetched = await channel.messages.fetch({limit: 1});
+                await channel.bulkDelete(fetched).catch(console.error);
+                await channel.send("The queue has been opened")
+            }
+        }
+        return true;
+    }
+    return q;
 }
 
 export async function reaction_response(firestore: FirebaseFirestore.Firestore, packet: any) {
