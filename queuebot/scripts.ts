@@ -1,8 +1,9 @@
 import Discord, { Channel, DMChannel, Guild, GuildMember, Message, NewsChannel, TextChannel, Permissions, User, ReactionEmoji, MessageReaction } from "discord.js";
 const client : any = new Discord.Client()
 //const userResponse = require('./common/user-response.js');
-const {userResponse} = require("./common/user-response.ts");
-require('dotenv').config()
+import "./common/user-response";
+import {config} from "dotenv";
+config();
 import * as init from "./firebase/init_fb_db"
 import * as db from "./firebase/fb-db";
 import * as ta from "./message-response/ta-channel";
