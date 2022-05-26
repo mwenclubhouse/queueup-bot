@@ -6,7 +6,7 @@ import { memoryUsage } from 'process';
 
 console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-export async function addMem(firestore: FirebaseFirestore.Firestore, name : string, id: string) {
+export async function addMem(firestore: FirebaseFirestore.Firestore, name : string, id: string = "") {
     let th = await firestore.collection("test").doc(id).get();
     if(th.createTime == undefined) {
         const d = new Date();
