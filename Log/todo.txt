@@ -1,0 +1,6 @@
+* Create a storage/management system for discord IDs 
+    - Possibly a file.ts that returns values of each of the IDs
+    - Store each ID in firebase
+* Create an init function that intializes the discord server to be compatable with bot
+* Add feature to allow bot to delete messages of helped students
+* figure out how to bulk delete messages that are older than 14 days (bulkDelete function does not do this)

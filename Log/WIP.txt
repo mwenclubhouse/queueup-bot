@@ -1,0 +1,6 @@
+April 3rd, 2022
+* Making open and close queue commands
+
+April 2nd, 2022
+* (DONE) Working on deleting messages from channel when closing the queue
+* (DONE) working on making sure a student may only have one instance in the queue
