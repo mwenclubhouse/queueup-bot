@@ -1,8 +1,4 @@
-import os from 'os';
-const { applicationDefault, initializeApp } = require('firebase-admin/app');
-import { getFirestore } from "firebase-admin/firestore";
 import "dotenv/config";
-import { memoryUsage } from 'process';
 
 console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
@@ -53,10 +49,3 @@ export async function clearQueue(firestore: FirebaseFirestore.Firestore, ) {
         }
     });
 }
-
-/* 
-for(let i = 0; i < 12; i++) {
-    addMem("New student in queue # " + String(i));
-} */
-
-//clearQueue(firestore2).then();

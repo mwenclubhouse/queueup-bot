@@ -4,14 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node queuebot/main.ts",
-    "db": "ts-node queuebot/firebase/test.ts",
-    "test": "ts-node queuebot/scripts.ts",
-    "try": "ts-node queuebot/discord-wrapper.ts",
-    "sql": "ts-node queuebot/common/utils.ts",
+    "dev": "ts-node index.ts",
     "build": "tsc",
-    "start": "node dist/queuebot/scripts.js"
-
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
